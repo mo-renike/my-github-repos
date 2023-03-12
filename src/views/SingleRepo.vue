@@ -4,7 +4,6 @@
   </div>
   <div v-else class="details">
     <button type="button" class="details__body-toggle" :onClick="{ toggleSidebar }">
-      <!-- <GiHamburgerMenu /> -->
     </button>
 
     <router-link to="/" class="details__body-back">
@@ -13,12 +12,7 @@
     </router-link>
     <div class="details__body">
       <aside class="details__body-left">
-        <!--
-  <button type="button" class="slide_btn">
-    <span></span>
-    <span></span>
-  </button>
-  -->
+
         <img :src="details.owner.avatar_url" alt="img" />
         <div class="details__body-owner">
           <h3>@{{ details.owner.login }}</h3>
@@ -27,7 +21,7 @@
             <a href="http://github.com/mo-renike" target="_blank" rel="noopener noreferrer">
               Github Profile Page
             </a>
-            <a href="https://mo-renike.github.io/portfolio-page/" target="_blank" rel="noopener noreferrer">
+            <a href="https://morenike.ninja" target="_blank" rel="noopener noreferrer">
               Portfolio Website
             </a>
             <a href="http://twitter.com/mo_renike_" target="_blank" rel="noopener noreferrer">
@@ -130,7 +124,7 @@ export default {
       this.fetchRepo();
     },
   },
-  components: { LoaderSpin },
+  components: { LoaderSpin,},
 };
 </script>
 
