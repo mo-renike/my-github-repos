@@ -1,31 +1,124 @@
 <template>
-  <div id="app">
-    <RepoList />
-    <SingleRepo />
-  </div>
+  <nav class="nav">
+    <div class="nav__links">
+      <router-link to="/">Home</router-link>
+      <router-link to="/404">404 page</router-link>
+    </div>
+  </nav>
+  <router-view />
 </template>
 
-<script>
-import RepoList from './components/RepoList.vue'
-import SingleRepo from './components/SingleRepo.vue'
+<style lang="scss">
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-export default {
-  name: 'App',
-  components: {
-    RepoList,
-    SingleRepo,
+:root {
+  --primary-color: #131313;
+  --secondary-color: #1f1f1f;
+  --text-color: #f1f1f1;
+  --accent-color: #00d9ff;
+  --box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.7);
+  --box-shadow-sm: 0 0 2px 0 rgba(0, 0, 0, 0.7);
+}
+
+body {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.App {
+  max-width: 1512px;
+  margin: auto;
+}
+
+p {
+  font-size: 1rem;
+}
+
+img {
+  width: 100%;
+}
+
+button,
+a {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 14px;
   }
 }
-</script>
 
-<style>
-#app {
-  background-color: #18222b;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #efefef;
-  margin-top: 60px;
+.my-1 {
+  margin: 1rem 0;
+}
+
+.d-flex {
+  display: flex;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.d-flex>* {
+  margin-right: 0.8rem;
+}
+
+.d-flex a {
+  color: var(--accent-color);
+}
+
+.d-flex p {
+  opacity: 0.4;
+}
+
+.dim {
+  opacity: 0.4;
+  margin: 0.5rem 0;
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  padding: 0 1rem;
+  height: 4.1rem;
+  margin: 0;
+  background-color: var(--secondary-color);
+  box-shadow: var(--box-shadow);
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    >* {
+      font-weight: bold;
+      text-decoration: none;
+      color: var(--accent-color);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      transition: all 0.3s ease-in-out;
+      border: 1px solid transparent;
+      margin-right: 1rem;
+      background: none;
+
+      &:hover {
+        border-bottom: 1px solid var(--accent-color);
+      }
+    }
+  }
 }
 </style>
