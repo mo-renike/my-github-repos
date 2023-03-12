@@ -2,93 +2,90 @@
   <div v-if="loading">
     <LoaderSpin />
   </div>
-  <div v-else className="details">
-    <button type="button" className="details__body-toggle" onClick="{toggleSidebar}">
-      <GiHamburgerMenu />
+  <div v-else class="details">
+    <button type="button" class="details__body-toggle" :onClick="{ toggleSidebar }">
+      <!-- <GiHamburgerMenu /> -->
     </button>
 
-    <Link to="/" className="details__body-back">
-    <br />
-    <span>&#8592;</span> Back to Repos
-    </Link>
-    <div className="details__body">
-      <aside className="details__body-left">
-        {/*
-        <button type="button" className="slide_btn">
-          <span></span>
-          <span></span>
-        </button>
-        */}
-        <img src="{details.owner.avatar_url}" alt="img" />
-        <div className="details__body-owner">
-          <h3>@{details.owner.login}</h3>
+    <router-link to="/" class="details__body-back">
+      <br />
+      <span>&#8592;</span> Back to Repos
+    </router-link>
+    <div class="details__body">
+      <aside class="details__body-left">
+        <!--
+  <button type="button" class="slide_btn">
+    <span></span>
+    <span></span>
+  </button>
+  -->
+        <img :src="details.owner.avatar_url" alt="img" />
+        <div class="details__body-owner">
+          <h3>@{{ details.owner.login }}</h3>
           <h4>Morenike Oyewole</h4>
-          <div className="link">
-            {" "}
+          <div class="link">
             <a href="http://github.com/mo-renike" target="_blank" rel="noopener noreferrer">
-              <AiOutlineLink /> Github Profile Page
+              Github Profile Page
             </a>
             <a href="https://mo-renike.github.io/portfolio-page/" target="_blank" rel="noopener noreferrer">
-              <AiOutlineLink /> Portfolio Website
+              Portfolio Website
             </a>
             <a href="http://twitter.com/mo_renike_" target="_blank" rel="noopener noreferrer">
-              {" "}
-              <AiOutlineTwitter /> Twitter
+              Twitter
             </a>
             <a href="http://linkedin.com/in/morenike-oyewole" target="_blank" rel="noopener noreferrer">
-              {" "}
-              <AiFillLinkedin /> LinkedIn
+              LinkedIn
             </a>
             <a href="https://wa.link/xvyhzl" target="_blank" rel="noopener noreferrer">
-              {" "}
-              <AiOutlineWhatsApp /> Whatsapp Me
+              Whatsapp Me
             </a>
             <a href="mailto:herroyalpianist@gmail.com" target="_blank" rel="noopener noreferrer">
-              {" "}
-              <AiFillMail /> Send a mail
+              Send a mail
             </a>
           </div>
         </div>
       </aside>
-      <main className="details__body-main">
-        <h1>{details.name}</h1>
+
+      <main class="details__body-main">
+        <h1>{{ details.name }}</h1>
         <br />
         <p>
-          {details.description ? details.description : "No description added
-          yet"}
+          {{ details.description ? details.description : "No description added yet" }}
         </p>
-        <p className="dim">Primary Language: {details.language}</p>
-        <p className="dim">
-          {" "} Created on {new Date( details.created_at ).toDateString()} ||
-          Last Updated on{" "} {new Date(details.updated_at).toDateString()}
+        <p class="dim">Primary Language: {{ details.language }}</p>
+        <p class="dim">
+          Created on {{ new Date(details.created_at).toDateString() }} ||
+          Last Updated on {{ new Date(details.updated_at).toDateString() }}
         </p>
-        {" "}
-        <div className="d-flex">
+        <div class="d-flex">
           <p>
-            <AiOutlineStar />{" "}
-            <span>{details.stargazers_count} Stars</span>
+            <span>{{ details.stargazers_count }} Stars</span>
           </p>
           <p>
-            <AiOutlineFork /> <span>{details.forks} Forks</span>
+            <span>{{ details.forks }} Forks</span>
           </p>
           <a :href="details.homepage ? details.homepage : '#'" target="_blank" rel="noopener noreferrer">
-            <AiOutlineLink /> Hosted Link
+            Hosted Link
           </a>
-          <a href="{details.html_url}" target="_blank" rel="noopener noreferrer">
-            <AiOutlineLink /> Github Link
-          </a>{" "}
+          <a :href="details.html_url" target="_blank" rel="noopener noreferrer">
+            Github Link
+          </a>
         </div>
         <p>
-          <span className="dim">Repo size: {details.size}kb</span>
+          <span class="dim">Repo size: {{ details.size }}kb</span>
         </p>
-        <div className="d-flex">
-          {details.topics ? ( details.topics.map((topic) => (
-          <span className="topic" key="{topic}"> {topic} </span>
-          )) ) : (
-          <span className="topic">No topic added yet</span>
-          )}
+        <div class="d-flex">
+          <template v-if="details.topics">
+            <span v-for="topic in details.topics" :key="topic" class="topic">
+              {{ topic }}
+            </span>
+          </template>
+          <template v-else>
+            <span class="topic">No topic added yet</span>
+          </template>
         </div>
       </main>
+
     </div>
   </div>
 </template>
@@ -99,18 +96,19 @@ import LoaderSpin from "@/components/LoaderSpin.vue";
 export default {
   data() {
     return {
-      repo: [],
       loading: false,
       error: null,
+      details: {},
+
     };
   },
   methods: {
     fetchRepo() {
       this.loading = true;
-      fetch(`https://api.github.com/repos/mo-renike/${this.$route.params.name}`)
+      fetch(`https://api.github.com/repos/mo-renike/${this.$route.params.id}`)
         .then((response) => response.json())
         .then((data) => {
-          this.repo = data;
+          this.details = data;
         })
         .catch((error) => {
           this.error = error.toString();
@@ -118,6 +116,10 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    toggleSidebar() {
+      const body = document.querySelector(".details__body");
+      body.classList.toggle("show-sidebar");
     },
   },
   created() {
