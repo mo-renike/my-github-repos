@@ -4,10 +4,11 @@
   </div>
   <div v-else class="details">
     <button type="button" class="details__body-toggle" :onClick="{ toggleSidebar }">
+      <v-icon name="chevron-right" />
     </button>
 
     <router-link to="/" class="details__body-back">
-      <br />
+      
       <span>&#8592;</span> Back to Repos
     </router-link>
     <div class="details__body">
@@ -86,6 +87,8 @@
 
 <script>
 import LoaderSpin from "@/components/LoaderSpin.vue";
+import OhVueIcon from "oh-vue-icons";
+
 
 export default {
   data() {
@@ -93,7 +96,6 @@ export default {
       loading: false,
       error: null,
       details: {},
-
     };
   },
   methods: {
@@ -124,7 +126,10 @@ export default {
       this.fetchRepo();
     },
   },
-  components: { LoaderSpin,},
+  components: { 
+    LoaderSpin, 
+      "v-icon": OhVueIcon,
+  },
 };
 </script>
 
