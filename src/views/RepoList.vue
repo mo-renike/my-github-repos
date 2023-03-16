@@ -36,7 +36,7 @@
               {{ repo.name }} <small>({{ repo.visibility }})</small>
             </h2>
             <p>
-              X <span>{{ repo.stargazers_count }}</span>
+              <Icon icon="material-symbols:star-rate-rounded" /> <span>{{ repo.stargazers_count }}</span>
             </p>
           </div>
 
@@ -55,12 +55,12 @@
               </small>
             </p>
           </div>
-        </router-link> 
+        </router-link>
 
       </li>
     </ul>
     <div v-if="loading">
-      <loader-spin />
+      <loader-spin title="Loading..." />
     </div>
     <div v-else-if="error">{{ error }}</div>
     <div v-else-if="!repos.length">No repositories found.</div>
@@ -73,6 +73,7 @@
 import LoaderSpin from '@/components/LoaderSpin.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
 import { ref, watch, computed } from 'vue';
+import { Icon } from "@iconify/vue"
 
 
 export default {
@@ -149,7 +150,7 @@ export default {
     };
 
   },
-  components: { LoaderSpin, PaginationComponent }
+  components: { LoaderSpin, PaginationComponent, Icon }
 };
 </script>
 

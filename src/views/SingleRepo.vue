@@ -1,16 +1,14 @@
 <template>
   <div v-if="loading">
-    <LoaderSpin />
+    <LoaderSpin title="Loading Details..." />
   </div>
   <div v-else class="details">
-    <button type="button" class="details__body-toggle" :onClick="{ toggleSidebar }">
-      <v-icon name="chevron-right" />
+    <br> <br>
+    <button type="button" class="details__body-toggle" @click="toggleSidebar">
+      <Icon icon="ci:hamburger" />
     </button>
+    <br>
 
-    <router-link to="/" class="details__body-back">
-      
-      <span>&#8592;</span> Back to Repos
-    </router-link>
     <div class="details__body">
       <aside class="details__body-left">
 
@@ -20,22 +18,22 @@
           <h4>Morenike Oyewole</h4>
           <div class="link">
             <a href="http://github.com/mo-renike" target="_blank" rel="noopener noreferrer">
-              Github Profile Page
+              <Icon icon="mdi:github" /> Github Profile
             </a>
             <a href="https://morenike.ninja" target="_blank" rel="noopener noreferrer">
-              Portfolio Website
+              <Icon icon="mdi:link" /> Portfolio Website
             </a>
             <a href="http://twitter.com/mo_renike_" target="_blank" rel="noopener noreferrer">
-              Twitter
+              <Icon icon="mdi:twitter" /> Twitter
             </a>
             <a href="http://linkedin.com/in/morenike-oyewole" target="_blank" rel="noopener noreferrer">
-              LinkedIn
+              <Icon icon="mdi:linkedin" /> LinkedIn
             </a>
             <a href="https://wa.link/xvyhzl" target="_blank" rel="noopener noreferrer">
-              Whatsapp Me
+              <Icon icon="mdi:whatsapp" /> Whatsapp Me
             </a>
             <a href="mailto:herroyalpianist@gmail.com" target="_blank" rel="noopener noreferrer">
-              Send a mail
+              <Icon icon="material-symbols:mail" /> Send a mail
             </a>
           </div>
         </div>
@@ -54,20 +52,20 @@
         </p>
         <div class="d-flex">
           <p>
-            <span>{{ details.stargazers_count }} Stars</span>
+            <Icon icon="mdi:star" /> <span>{{ details.stargazers_count }} Stars</span>
           </p>
           <p>
-            <span>{{ details.forks }} Forks</span>
+            <Icon icon="icon-park-twotone:fork" /> <span>{{ details.forks }} Forks</span>
           </p>
           <a :href="details.homepage ? details.homepage : '#'" target="_blank" rel="noopener noreferrer">
-            Hosted Link
+            <Icon icon="mdi:link" /> Hosted Link
           </a>
           <a :href="details.html_url" target="_blank" rel="noopener noreferrer">
-            Github Link
+            <Icon icon="mdi:link" /> Github Link
           </a>
         </div>
         <p>
-          <span class="dim">Repo size: {{ details.size }}kb</span>
+          <Icon icon="material-symbols:folder-open-rounded" /> <span class="dim">Repo size: {{ details.size }}kb</span>
         </p>
         <div class="d-flex">
           <template v-if="details.topics">
@@ -79,15 +77,21 @@
             <span class="topic">No topic added yet</span>
           </template>
         </div>
+          <router-link to="/" class="details__body-back">
+
+        <span>&#8592;</span> Back to Repos
+      </router-link>
       </main>
 
-    </div>
+  
+  
+      </div>
   </div>
 </template>
 
 <script>
 import LoaderSpin from "@/components/LoaderSpin.vue";
-import OhVueIcon from "oh-vue-icons";
+import { Icon } from "@iconify/vue";
 
 
 export default {
@@ -126,9 +130,9 @@ export default {
       this.fetchRepo();
     },
   },
-  components: { 
-    LoaderSpin, 
-      "v-icon": OhVueIcon,
+  components: {
+    LoaderSpin,
+    Icon
   },
 };
 </script>
@@ -159,8 +163,10 @@ export default {
     }
 
     &-back {
-      padding: 1rem;
-      // margin-top: 0.6rem;
+      transition: all 0.3s ease;
+     &:hover{
+        color: var(--accent-color);
+     }
     }
 
     &.show-sidebar {
