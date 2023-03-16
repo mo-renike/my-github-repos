@@ -41,7 +41,7 @@
           </div>
 
           <p class="my-1">
-            {{ repo.description ? repo.description : "No description added" }}
+            {{ repo.description ? repo.description.length > 70 ? repo.description.slice(0, 70) + " ..." : repo.description : "No description added" }}
           </p>
           <div class="dets">
             <p>
